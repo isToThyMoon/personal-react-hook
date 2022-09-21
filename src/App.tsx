@@ -2,28 +2,39 @@
  * @Author: 王荣
  * @Date: 2022-02-11 14:25:28
  * @LastEditors: 王荣
- * @LastEditTime: 2022-04-18 14:41:52
+ * @LastEditTime: 2022-09-14 00:52:55
  * @Description: 填写简介
  */
 
 import { UseEffectDemo } from "./useEffectDemo";
-import React, { Fragment } from "react";
+import useClickOutside from "./hooks/custom-hooks/useClickOutside/useClickOutside";
+import React, { useState, Fragment } from "react";
+import Demo from "./demo";
 
-function App() {
+const App: React.FC = () => {
+  const [count, setCount] = useState(0);
+
   return (
     <div className="App">
-      <UseEffectDemo />
+      {/* <UseEffectDemo /> */}
+      <button
+        onClick={() => {
+          setCount((state) => state + 1);
+        }}
+      >
+        change Count
+      </button>
       <Demo></Demo>
     </div>
   );
-}
+};
 
 interface DemoProps {}
 interface DemoState {
   length: number;
 }
 
-class Demo extends React.Component<DemoProps, DemoState> {
+class Child extends React.Component<DemoProps, DemoState> {
   divRef: React.RefObject<HTMLDivElement>;
   constructor(props: DemoProps) {
     super(props);
@@ -36,6 +47,7 @@ class Demo extends React.Component<DemoProps, DemoState> {
   render(): React.ReactNode {
     return (
       <Fragment>
+        <Demo></Demo>
         <button
           onClick={() => {
             // this.setState({
